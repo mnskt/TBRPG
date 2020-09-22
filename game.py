@@ -3,6 +3,7 @@ import sys
 import os
 import time
 import random
+from classes import *
 
 screen_width = 100
 
@@ -14,7 +15,7 @@ class Player():
 		self.gender = ''
 		self.race = ''
 		self.klass = ''
-
+		self.weapon = ''
 thePlayer = Player()
 
 def text_write(value):
@@ -25,7 +26,6 @@ def text_write(value):
 
 def game_setup():
 	os.system('clear&cls')
-
 	# Get Name
 	obtain_name = "Hello, what's your name?\n"
 	text_write(obtain_name)
@@ -46,10 +46,29 @@ def game_setup():
 	while player_gender.lower() not in acceptable_genders:
 		print("Unacceptable gender, try again")
 		player_gender = input(">>> ")
+		break
 	thePlayer.gender = player_gender.lower()
 	print("Your name is " + thePlayer.name + ".")
 	print("Your are " + thePlayer.age + " years old.")
 	print("Your are " + thePlayer.gender + ".")
+
+	# Get class
+	obtain_class = "Which class are you?\nAvailable classes are: warrior, mage and cleric.\n"
+	text_write(obtain_class)
+	player_class = input(">>> ")
+	while player_class.lower() not in ['warrior', 'mage', 'cleric']:
+		print("Unavailable option, try again")
+		player_class = input(">>> ")
+		if player_class == 'warrior':
+			thePlayer.klass = warrior_class
+			print("You have successfully chosen the warrior class!")
+		elif player_class == 'mage':
+			thePlayer.klass = mage_class
+			print("You have successfully chosen the mage class!")
+		elif player_class == 'cleric':
+			thePlayer.klass = cleric_class
+			print("You have successfully chosen the cleric class!")
+	print(thePlayer.klass)
 
 def title_screen():
 	os.system("clear&cls")
