@@ -4,6 +4,8 @@ import os
 import time
 import random
 import classes
+import races
+import weapons
 
 screen_width = 100
 
@@ -33,13 +35,13 @@ def game_setup():
 	thePlayer.name = player_name
 
 	# Get Age
-	obtain_age = "And what is your age?\n"
+	obtain_age = "\nAnd what is your age?\n"
 	text_write(obtain_age)
 	player_age = input(">>> ")
 	thePlayer.age = player_age
 
 	# Get gender
-	obtain_gender = "Are you male or female?\n"
+	obtain_gender = "\nAre you male or female?\n"
 	text_write(obtain_gender)
 	player_gender = input(">>> ")
 	acceptable_genders = ['male', 'female']
@@ -49,12 +51,9 @@ def game_setup():
 		player_gender = input(">>> ")
 
 	thePlayer.gender = player_gender.lower()
-	print("Your name is " + thePlayer.name + ".")
-	print("Your are " + thePlayer.age + " years old.")
-	print("Your are " + thePlayer.gender + ".")
 
 	# Get class
-	obtain_class = "Which class are you?\nAvailable classes are: warrior, mage and cleric.\n"
+	obtain_class = "\nWhich class are you?\nAvailable classes are: warrior, mage and cleric.\n"
 	text_write(obtain_class)
 	player_class = input(">>> ")
 
@@ -63,25 +62,84 @@ def game_setup():
 		player_class = input(">>> ")
 		if player_class == ('warrior'):
 			thePlayer.klass = classes.warrior_class
-			print("You have successfully chosen the warrior class!")
 		elif player_class == ('mage'):
 			thePlayer.klass = classes.mage_class
-			print("You have successfully chosen the mage class!")
 		elif player_class == ('cleric'):
 			thePlayer.klass = classes.cleric_class
-			print("You have successfully chosen the cleric class!")
 	else:
 		if player_class == ('warrior'):
 			thePlayer.klass = classes.warrior_class
-			print("You have successfully chosen the warrior class!")
 		elif player_class == ('mage'):
 			thePlayer.klass = classes.mage_class
-			print("You have successfully chosen the mage class!")
 		elif player_class == ('cleric'):
 			thePlayer.klass = classes.cleric_class
-			print("You have successfully chosen the cleric class!")
 
-	print(thePlayer.klass.description)
+	# Get race
+	obtain_race = '\nAnd what race would you be?\nAvailable races are: orc, elf and dwarf.\n'
+	text_write(obtain_race)
+	available_races = ['orc', 'elf', 'dwarf']
+	player_race = input(">>> ")
+
+	while player_race.lower() not in available_races:
+		print("Unavailable option, try again\n")
+		player_race = input(">>> ")
+		if player_race == ('orc'):
+			thePlayer.race = races.orc
+		if player_race == ('elf'):
+			thePlayer.race = races.elf
+		if player_race == ('dwarf'):
+			thePlayer.race = races.dwarf
+	else:
+		if player_race == ('orc'):
+			thePlayer.race = races.orc
+		if player_race == ('elf'):
+			thePlayer.race = races.elf
+		if player_race == ('dwarf'):
+			thePlayer.race = races.dwarf
+	
+	# Get starting weapon
+	obtain_weapon = '\nWhich weapon would you like to start with?\nAvailable weapons are: sword, dagger, mace.\n'
+	text_write(obtain_weapon)
+	avaiable_weapons = ['sword', 'dagger', 'mace']
+	player_start_weapon = input(">>> ")
+
+	while player_start_weapon.lower() not in avaiable_weapons:
+		print("Unavailable option, try again\n")
+		player_start_weapon = input(">>> ")
+		if player_start_weapon == ('sword'):
+			thePlayer.weapon = weapons.sword
+		elif player_start_weapon == ('dagger'):
+			thePlayer.weapon = weapons.dagger
+		elif player_start_weapon == ('mace'):
+			thePlayer.weapon = weapons.mace
+	else:
+		if player_start_weapon == ('sword'):
+			thePlayer.weapon = weapons.sword
+		elif player_start_weapon == ('dagger'):
+			thePlayer.weapon = weapons.dagger
+		elif player_start_weapon == ('mace'):
+			thePlayer.weapon = weapons.mace
+
+	# Created character display
+	os.system("clear&cls")
+	print("###############################")
+	print("### Your created character  ###")
+	print("###############################")
+	print("Name: " + thePlayer.name)
+	print("Gender: " + thePlayer.gender)
+	print("Age: " + thePlayer.age)
+	print("Race: " + thePlayer.race.race_name)
+	print("Class: " + thePlayer.klass.name)
+	print(f"HP: {thePlayer.klass.baseHP + thePlayer.race.hp}")
+	print(f"MP: {thePlayer.klass.baseMP+thePlayer.race.mp}")
+	print(f"Attack: {thePlayer.klass.baseAtk + thePlayer.race.attack}")
+	print(f"Defence: {thePlayer.klass.baseDef + thePlayer.race.defence}")
+	print("Racial skill: " + thePlayer.race.racial_skill + "\n")
+	print("Main weapon: "+ thePlayer.weapon.name)
+	print("Weapon's damage type: " + thePlayer.weapon.atk_type)
+	print(f"Weapon's damage: {thePlayer.weapon.dmg}")
+	print("###############################")
+
 
 def title_screen():
 	os.system("clear&cls")
