@@ -3,7 +3,7 @@ import sys
 import os
 import time
 import random
-from classes import *
+import classes
 
 screen_width = 100
 
@@ -43,10 +43,11 @@ def game_setup():
 	text_write(obtain_gender)
 	player_gender = input(">>> ")
 	acceptable_genders = ['male', 'female']
+
 	while player_gender.lower() not in acceptable_genders:
 		print("Unacceptable gender, try again")
 		player_gender = input(">>> ")
-		break
+
 	thePlayer.gender = player_gender.lower()
 	print("Your name is " + thePlayer.name + ".")
 	print("Your are " + thePlayer.age + " years old.")
@@ -56,19 +57,31 @@ def game_setup():
 	obtain_class = "Which class are you?\nAvailable classes are: warrior, mage and cleric.\n"
 	text_write(obtain_class)
 	player_class = input(">>> ")
+
 	while player_class.lower() not in ['warrior', 'mage', 'cleric']:
 		print("Unavailable option, try again")
 		player_class = input(">>> ")
-		if player_class == 'warrior':
-			thePlayer.klass = warrior_class
+		if player_class == ('warrior'):
+			thePlayer.klass = classes.warrior_class
 			print("You have successfully chosen the warrior class!")
-		elif player_class == 'mage':
-			thePlayer.klass = mage_class
+		elif player_class == ('mage'):
+			thePlayer.klass = classes.mage_class
 			print("You have successfully chosen the mage class!")
-		elif player_class == 'cleric':
-			thePlayer.klass = cleric_class
+		elif player_class == ('cleric'):
+			thePlayer.klass = classes.cleric_class
 			print("You have successfully chosen the cleric class!")
-	print(thePlayer.klass)
+	else:
+		if player_class == ('warrior'):
+			thePlayer.klass = classes.warrior_class
+			print("You have successfully chosen the warrior class!")
+		elif player_class == ('mage'):
+			thePlayer.klass = classes.mage_class
+			print("You have successfully chosen the mage class!")
+		elif player_class == ('cleric'):
+			thePlayer.klass = classes.cleric_class
+			print("You have successfully chosen the cleric class!")
+
+	print(thePlayer.klass.description)
 
 def title_screen():
 	os.system("clear&cls")
@@ -87,6 +100,13 @@ def title_screen_nav():
 	while title_screen_option.lower() not in acceptable_choices:
 		print("Unavailable option, try again")
 		title_screen_option = input(">>> ")
+		if title_screen_option.lower() == ("new game"):
+			game_setup()
+		elif title_screen_option.lower() == ("help"):
+			help_menu()
+		elif title_screen_option.lower() == ("exit"):
+			sys.exit()
+	else:
 		if title_screen_option.lower() == ("new game"):
 			game_setup()
 		elif title_screen_option.lower() == ("help"):
