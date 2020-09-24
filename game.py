@@ -18,6 +18,7 @@ class Player():
 		self.race = ''
 		self.klass = ''
 		self.weapon = ''
+		self.location = ''
 thePlayer = Player()
 
 def text_write(value):
